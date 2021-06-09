@@ -102,26 +102,27 @@ output, you can read more on [Wikipedia](https://en.wikipedia.org/wiki/Standard_
 
 OK! Your full `hello_world.cc` should look like this. 
 
-> ## Full source code file
-> > ~~~
-> > #include<cstdlib>
-> > #include<cstdio>
-> > #include<iostream>
-> > 
-> > 
-> > int main() {
-> > 
-> >     printf("Hello world! This uses the ANSI C 'printf' statement\n");
-> > 
-> >     std::cout << "Hello world! This uses the C++ 'iostream' library to direct output to standard out." << std::endl;
-> > 
-> >     std::cerr << "Hello world! This uses the C++ 'iostream' library to direct output to standard error." << std::endl;
-> > 
-> > }
-> > ~~~
-> > {: .language-cpp}
-> {: solution}
-{: .challenge}
+> ## Full source code file for `hello_world.cc`
+> ~~~
+> #include<cstdlib>
+> #include<cstdio>
+> #include<iostream>
+> 
+> 
+> int main() {
+> 
+>     printf("Hello world! This uses the ANSI C 'printf' statement\n");
+> 
+>     std::cout << "Hello world! This uses the C++ 'iostream' library to direct output to standard out." << std::endl;
+> 
+>     std::cerr << "Hello world! This uses the C++ 'iostream' library to direct output to standard error." << std::endl;
+> 
+>     return 0;
+> 
+> }
+> ~~~
+> {: .language-cpp}
+{: .solution}
 
 This won't do anything yet though! We need to *compile* the code, which means turning this into 
 [*machine code*](https://en.wikipedia.org/wiki/Machine_code). To do this, we'll use the GNU C++ compiler, `g++`. 
