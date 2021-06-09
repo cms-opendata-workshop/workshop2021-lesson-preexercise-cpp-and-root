@@ -95,23 +95,26 @@ output, you can read more on [Wikipedia](https://en.wikipedia.org/wiki/Standard_
 
 OK! Your full `hello_world.cc` should look like this. 
 
-~~~
-#include<cstdlib>
-#include<cstdio>
-#include<iostream>
-
-
-int main() {
-
-    printf("Hello world! This uses the ANSI C 'printf' statement\n");
-
-    std::cout << "Hello world! This uses the C++ 'iostream' library to direct output to standard out." << std::endl;
-
-    std::cerr << "Hello world! This uses the C++ 'iostream' library to direct output to standard error." << std::endl;
-
-}
-~~~
-{: .source}
+> ## Full source code file
+> > ~~~
+> > #include<cstdlib>
+> > #include<cstdio>
+> > #include<iostream>
+> > 
+> > 
+> > int main() {
+> > 
+> >     printf("Hello world! This uses the ANSI C 'printf' statement\n");
+> > 
+> >     std::cout << "Hello world! This uses the C++ 'iostream' library to direct output to standard out." << std::endl;
+> > 
+> >     std::cerr << "Hello world! This uses the C++ 'iostream' library to direct output to standard error." << std::endl;
+> > 
+> > }
+> > ~~~
+> > {: source}
+> {: solution}
+{: .challenge}
 
 This won't do anything yet though! We need to *compile* the code, which means turning this into 
 [*machine code*](https://en.wikipedia.org/wiki/Machine_code). To do this, we'll use the GNU C++ compiler, `g++`. 
@@ -121,7 +124,7 @@ Once you have saved your file and exited out of your editor, you can type this i
 ~~~
 g++ hello_world.cc -o hello_world
 ~~~
-{: .source}
+{: .bash}
 
 This compiles your code to an executable called `hello_world`. You can now run this by typing the following on 
 the shell command line, after which you'll see the subsequent output. 
@@ -129,7 +132,7 @@ the shell command line, after which you'll see the subsequent output.
 ~~~
 ./hello_world
 ~~~
-{: .source}
+{: .bash}
 ~~~
 Hello world! This uses the ANSI C 'printf' statement
 Hello world! This uses the C++ 'iostream' library to direct output to standard out.
