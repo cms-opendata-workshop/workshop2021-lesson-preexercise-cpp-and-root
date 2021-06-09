@@ -74,7 +74,14 @@ int main() {
 
 The `int` at the beginning tells us that this function will be returning an integer value. At the end of
 the `main` function we have `return 0`, which usually means the function has run successfully to completion. 
-Note that at the end of `return 0`, we have a semicolon `;`, which is how C/C++ programs end lines. 
+
+> ## Warning!
+> Note that at the end of `return 0`, we have a semicolon `;`, which is how C/C++ programs terminate lines. 
+> If you're used to programming in python or any other language that does not use a similar terminator, this
+> can be tough to remember. If you get errors when you compile, check the error statements for the lack
+> of `;` in any of your lines!
+>
+{: .callout}
 
 For this function, we are not passing in any arguments so we just have the empty `( )` after the `main`. 
 
