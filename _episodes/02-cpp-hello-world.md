@@ -18,7 +18,7 @@ with the following command.
 ~~~
 DOCKER COMMAND HERE
 ~~~
-{: .bash}
+{: .language-bash}
 
 Let's start with writing a simple `hello world` program in C. First we'll edit the 
 *source* code with an editor of your choice.
@@ -29,13 +29,13 @@ you're using `nano`, you'll type
 ~~~
 nano hello_world.cc
 ~~~
-{: .bash}
+{: .language-bash}
 
 or if you're using `vi`, you'll type
 ~~~
 vi hello_world.cc
 ~~~
-{: .bash}
+{: .language-bash}
 
 The first thing we need to do, is `include` some standard libraries. These libraries
 allow us to access the C and C++ commands to print to the screen (`stdout` and `stderr`) as 
@@ -48,7 +48,7 @@ At the very beginning of your file, add these three lines
 #include<cstdio>
 #include<iostream>
 ~~~
-{: .source}
+{: .language-cpp}
 
 The first library, `cstdlib`, you will see in almost every C++ program as it has many of the very 
 basic functions, including those to allocate and free up memory, or even just exit the program. 
@@ -70,7 +70,7 @@ int main() {
     return 0;
 }
 ~~~
-{: .source}
+{: .language-cpp}
 
 The `int` at the beginning tells us that this function will be returning an integer value. At the end of
 the `main` function we have `return 0`, which usually means the function has run successfully to completion. 
@@ -95,7 +95,7 @@ the `return 0;` line, let's add these three lines.
 
     std::cerr << "Hello world! This uses the C++ 'iostream' library to direct output to standard error." << std::endl;
 ~~~
-{: .source}
+{: .language-cpp}
 
 The text itself, should explain what they are doing. If you want to learn more about standard error and standard
 output, you can read more on [Wikipedia](https://en.wikipedia.org/wiki/Standard_streams). 
@@ -119,7 +119,7 @@ OK! Your full `hello_world.cc` should look like this.
 > > 
 > > }
 > > ~~~
-> > {: source}
+> > {: .language-cpp}
 > {: solution}
 {: .challenge}
 
@@ -130,8 +130,9 @@ Once you have saved your file and exited out of your editor, you can type this i
 
 ~~~
 g++ hello_world.cc -o hello_world
+
 ~~~
-{: .bash}
+{: .language-bash}
 
 This compiles your code to an executable called `hello_world`. You can now run this by typing the following on 
 the shell command line, after which you'll see the subsequent output. 
@@ -139,7 +140,7 @@ the shell command line, after which you'll see the subsequent output.
 ~~~
 ./hello_world
 ~~~
-{: .bash}
+{: .language-bash}
 ~~~
 Hello world! This uses the ANSI C 'printf' statement
 Hello world! This uses the C++ 'iostream' library to direct output to standard out.
