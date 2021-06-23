@@ -149,6 +149,10 @@ Hello world! This uses the C++ 'iostream' library to direct output to standard e
 ~~~
 {: .output}
 
+[Loops](https://www.w3schools.com/cpp/cpp_for_loop.asp)
+
+[Conditionals](https://www.w3schools.com/cpp/cpp_conditions.asp)
+
 
 
 {% include links.md %}
