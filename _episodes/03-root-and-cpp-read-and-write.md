@@ -1,5 +1,5 @@
 ---
-title: "Using ROOT with C++"
+title: "Using ROOT with C++ to write and read a file"
 teaching: 30
 exercises: 60
 questions:
