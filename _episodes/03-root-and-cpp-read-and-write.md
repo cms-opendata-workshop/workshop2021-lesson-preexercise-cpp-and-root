@@ -327,8 +327,6 @@ to simplify the build process.
 Create a new file called `Makefile` in the same directory as `write_ROOT_file.cc` and add the following to the
 file. You'll most likely do this with the editor of your choice. 
 
-REFERENCE SCRAM here.
-
 ~~~
 CC=g++
 
@@ -405,6 +403,17 @@ Your numbers may be slightly different because of the random numbers that
 are generated.
 
 Huzzah! You've successfully written your first ROOT file!
+
+> ## Will I have to `make` my Open Data analysis code?
+> Yes, you will! However, you won't actually call `make`, nor will you need to write your own
+> `Makefile`. Instead, the CMS software uses a configuration and build system called
+> [SCRAM](https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideScram). 
+> 
+> So instead of 
+> typing `make`, you'll find yourself typing `scram`. However, it serves the same purpose
+> by compiling and linking your code for you. 
+{: .callout}
+
 
 ## Read a ROOT file
 
