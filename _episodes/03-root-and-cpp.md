@@ -327,6 +327,8 @@ to simplify the build process.
 Create a new file called `Makefile` in the same directory as `write_ROOT_file.cc` and add the following to the
 file. You'll most likely do this with the editor of your choice. 
 
+REFERENCE SCRAM here.
+
 ~~~
 CC=g++
 
