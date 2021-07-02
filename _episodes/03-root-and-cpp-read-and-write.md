@@ -321,7 +321,7 @@ The full `write_ROOT_file.cc` should now look like this
 > {: .language-cpp}
 {: .solution}
 
-Because need to compile this in such a way that it links to the ROOT libraries, we will use a `Makefile` 
+Because we need to compile this in such a way that it links to the ROOT libraries, we will use a `Makefile` 
 to simplify the build process. 
 
 Create a new file called `Makefile` in the same directory as `write_ROOT_file.cc` and add the following to the
@@ -361,9 +361,10 @@ write_ROOT_file: write_ROOT_file.cc
 {: .callout}
 
 
-You can now run your compiled program from the command line!
+You can now compile and run your compiled program from the command line!
 
 ~~~
+make write_ROOT_file
 ./write_ROOT_file
 ~~~
 {: language-bash}

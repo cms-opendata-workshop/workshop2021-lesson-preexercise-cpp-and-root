@@ -1,7 +1,7 @@
 ---
 title: "Lightning overview of C++"
-teaching: 0
-exercises: 0
+teaching: 15
+exercises: 15
 questions:
 - "How do I write and execute C++ code?"
 objectives:
@@ -12,13 +12,11 @@ keypoints:
 
 This lesson assumes that you are using the same Docker container that has
 been created for accessing the CMS open data and the one you were introduced
-to in the Docker pre-exercise: NAMEOFCONTAINERHERE. Let's go into that container
-with the following command. 
-
-~~~
-DOCKER COMMAND HERE
-~~~
-{: .language-bash}
+to in the 
+[Docker pre-exercise](https://cms-opendata-workshop.github.io/workshop2021-lesson-docker/).
+Before going any further in this lession you should 
+launch the CMS Open Data container using the [commands you were introduced to in that lesson](https://cms-opendata-workshop.github.io/workshop2021-lesson-docker/03-docker-for-cms-opendata/index.html). All the exercises in this lesson will be 
+compiled and run in this container. 
 
 Let's start with writing a simple `hello world` program in C. First we'll edit the 
 *source* code with an editor of your choice.
@@ -149,9 +147,12 @@ Hello world! This uses the C++ 'iostream' library to direct output to standard e
 ~~~
 {: .output}
 
-[Loops](https://www.w3schools.com/cpp/cpp_for_loop.asp)
-
-[Conditionals](https://www.w3schools.com/cpp/cpp_conditions.asp)
+When you are working with the Open Data, you will be looping over events 
+and may find yourself making selections based on certain physics criteria. 
+To that end, you may want to familiarize yourself with the C++ syntax for
+[loops](https://www.w3schools.com/cpp/cpp_for_loop.asp)
+and 
+[conditionals](https://www.w3schools.com/cpp/cpp_conditions.asp).
 
 
 
