@@ -1,0 +1,1076 @@
+ Toggle navigation     [The_CMS_logo] Home
+    * Code_of_Conduct
+    * Setup
+    * Episodes
+          o Introduction
+          o Lightning_overview_of_C++
+          o Using_ROOT_with_C++_to_write_and_read_a_file
+          o Using_ROOT_with_C++_to_fill_a_histogram
+          o Using_ROOT_with_python
+          o All_in_one_page_(Beta)
+    * Extras
+          o Reference
+    * License
+    * Improve_this_page
+[                    ]
+****** C++_and_ROOT ******
+****** Introduction ******
+     ***** Overview *****
+     Teaching: 5 min
+     Exercises: 0 min
+     Questions
+         * What is C++?
+         * What is ROOT?
+         * What is the point of these exercises?
+     Objectives
+         * Learn a bit about C++ and how to compile C++ code.
+         * Learn how to use ROOT to write and read from files, using the
+           C++ libraries.
+         * learn how to use ROOT to investigate data and create simple
+           histograms
+         * Explore the ROOT python libraries.
+Despite the order of the words in the title of this lesson, let’s talk about
+ROOT first!
+     ***** What is ROOT? *****
+     From the ROOT_website
+     ROOT is a framework for data processing, born at CERN, at the heart
+     of the research on high-energy physics. Every day, thousands of
+     physicists use ROOT applications to analyze their data or to perform
+     simulations.
+     In short, ROOT is an overarching toolkit that defines a file
+     structure, methods to analyze particle physics data, visualization
+     tools, and is the backbone of many widely used statistical analysis
+     tool kits, such as RooFit and RooStats. You don’t need to use ROOT
+     for your own analysis, but you will have to have some familiarity
+     with it when you are first accessing the open data.
+OK, that sounds cool. So what’s the deal with C++?
+     ***** ROOT and C++ *****
+     In the mid-80’s, C++ extended the very popular C_programming
+     language, primarily with the introduction of object-oriented
+     programming (OOP). This programming paradigm was adopted by many
+     particle physics experiments in the 1990’s and when ROOT was written,
+     it was written in C++. While there are now python hooks to call the
+     ROOT functions, the underlying code is all in C++.
+     Because C++ is a compiled code, it is usually much faster than a
+     scripted language like python, though that is changing with modern
+     python tools. Still, since much of the original analysis and access
+     code was written in C++ and calling the C++ ROOT libraries, it’s good
+     to know some of the basics of ROOT, in a C++ context.
+     Most CMS analysts interface with ROOT using python scripts and you
+     may find yourself using a similar workflow. Later on in this lesson,
+     we’ll walk you through some very basic python scripts and point you
+     toward more in-depth tutorials, for those who want to go further.
+     ***** You still have choices! *****
+     Just to emphasize, you really only need to use ROOT and C++ at the
+     very earliest stages of an analysis, when accessing the data and
+     using some of the CMS-provided tools. However, downstream in your
+     analysis, you are welcome to use whatever tools and file formats you
+     choose.
+     ***** Key Points *****
+         * C++ has a reputation for being intimidating, but there are only
+           a few things you need to learn to edit the open data code for
+           your own uses.
+         * You can use the ROOT toolkit using both C++ and python.
+         * Some ROOT code is written in C++ to access the datafiles.
+         * People will often use simpler C++ scripts or python scripts to
+           analyze reduced datasets.
+===============================================================================
+****** Lightning overview of C++ ******
+     ***** Overview *****
+     Teaching: 5 min
+     Exercises: 10 min
+     Questions
+         * How do I write and execute C++ code?
+     Objectives
+         * To write a hello-world C++ program
+This lesson assumes that you are using the same Docker container that has been
+created for accessing the CMS open data and the one you were introduced to in
+the Docker_pre-exercise. Before going any further in this lesson you should
+launch the CMS Open Data container using the commands_you_were_introduced_to_in
+that_lesson. All the exercises in this lesson will be compiled and run in this
+container.
+Let’s start with writing a simple hello world program in C. First we’ll edit
+the source code with an editor of your choice.
+Let’s create a new file called hello_world.cc, using your preferred editor. If
+you’re using nano, you’ll type
+nano hello_world.cc
+or if you’re using vi, you’ll type
+vi hello_world.cc
+The first thing we need to do, is include some standard libraries. These
+libraries allow us to access the C and C++ commands to print to the screen
+(stdout and stderr) as well as other basic function.
+At the very beginning of your file, add these three lines
+#include<cstdlib>
+#include<cstdio>
+#include<iostream>
+The first library, cstdlib, you will see in almost every C++ program as it has
+many of the very basic functions, including those to allocate and free up
+memory, or even just exit the program.
+The second library, cstdio, contains the basic C functions to print to screen,
+like printf.
+The third library, iostream, contains C++ functions to print to screen or write
+to files.
+Usually people will use one or the other of the C or C++ printing functions,
+but for pedagogical purposes, we show you both.
+Every C++ program must have a main function. So let’s define it here. The scope
+of this function is defined by curly brackets { }. So let’s add
+int main() {
+
+
+    return 0;
+}
+The int at the beginning tells us that this function will be returning an
+integer value. At the end of the main function we have return 0, which usually
+means the function has run successfully to completion.
+     ***** Warning! *****
+     Note that at the end of return 0, we have a semicolon ;, which is how
+     C/C++ programs terminate lines. If you’re used to programming in
+     python or any other language that does not use a similar terminator,
+     this can be tough to remember. If you get errors when you compile,
+     check the error statements for the lack of ; in any of your lines!
+For this function, we are not passing in any arguments so we just have the
+empty ( ) after the main.
+This function would compile, but it doesn’t do anything. Let’s print some text
+to screen. Before the return 0; line, let’s add these three lines.
+    printf("Hello world! This uses the ANSI C 'printf' statement\n");
+
+    std::cout << "Hello world! This uses the C++ 'iostream' library to direct
+output to standard out." << std::endl;
+
+    std::cerr << "Hello world! This uses the C++ 'iostream' library to direct
+output to standard error." << std::endl;
+The text itself, should explain what they are doing. If you want to learn more
+about standard error and standard output, you can read more on Wikipedia.
+OK! Your full hello_world.cc should look like this.
+     ***** Full source code file for hello_world.cc *****
+     #include<cstdlib>
+     #include<cstdio>
+     #include<iostream>
+
+
+     int main() {
+
+         printf("Hello world! This uses the ANSI C 'printf' statement\n");
+
+         std::cout << "Hello world! This uses the C++ 'iostream' library
+     to direct output to standard out." << std::endl;
+
+         std::cerr << "Hello world! This uses the C++ 'iostream' library
+     to direct output to standard error." << std::endl;
+
+         return 0;
+
+     }
+This won’t do anything yet though! We need to compile the code, which means
+turning this into machine_code. To do this, we’ll use the GNU C++ compiler,
+g++. Once you have saved your file and exited out of your editor, you can type
+this in your shell (make sure you’re in the same directory as your
+hello_world.cc source code file!).
+g++ hello_world.cc -o hello_world
+
+This compiles your code to an executable called hello_world. You can now run
+this by typing the following on the shell command line, after which you’ll see
+the subsequent output.
+./hello_world
+Hello world! This uses the ANSI C 'printf' statement
+Hello world! This uses the C++ 'iostream' library to direct output to standard
+out.
+Hello world! This uses the C++ 'iostream' library to direct output to standard
+error.
+When you are working with the Open Data, you will be looping over events and
+may find yourself making selections based on certain physics criteria. To that
+end, you may want to familiarize yourself with the C++ syntax for loops and
+conditionals.
+     ***** Key Points *****
+         * We must compile our C++ code before we can execute it.
+===============================================================================
+****** Using ROOT with C++ to write and read a file ******
+     ***** Overview *****
+     Teaching: 20 min
+     Exercises: 40 min
+     Questions
+         * Why do I need to use ROOT?
+         * How do I use ROOT with C++?
+     Objectives
+         * Write a ROOT file using compiled C++ code.
+         * Read a ROOT file using compiled C++ code.
+     ***** Why ROOT? *****
+     HEP data can be challenging! Not just to analyze but to store! The
+     data don’t lend themselves to neat rows in a spreadsheet. One event
+     might have 3 muons and the next event might have none. One event
+     might have 2 jets and the next event might have 20. What to do???
+     The ROOT toolkit provides a file format that can allow for efficient
+     storage of this type of data with heterogenous entries in each event.
+     It also provides a pretty complete analysis environment with
+     specialized libraries and visualization packages. Until recently, you
+     had to install the entire ROOT package just to read a file. The
+     software provided by CMS to read the open data relies on some minimal
+     knowledge of ROOT to access. From there, you can write out more ROOT
+     files for further analysis or dump the data (or some subset of the
+     data) to a format of your choosing.
+***** Interfacing with ROOT *****
+ROOT is a toolkit. That is, it is a set of functions and libraries that can be
+utilized in a variety of languages and workflows. It was originally written in
+C++ and lends itself nicely to being used in standard, compiled C++ code.
+However, analysts wanted something more interactive, and so the ROOT team
+developed CINT,_a_C++_interpreter. This gave users an iteractive environment
+where they could type of C++ code one line at a time and have it executed
+immediately. This gave rise to C++ scripts that many analysts use and in fact
+the sample ROOT_tutorals are almost exclusively written as these C++ scripts
+(with a .C file extension). Because they are written to run in CINT, they
+usually do not need the standard C++ include statements that you will see in
+the examples below.
+With the rise of the popularity of python, a set of Python-C++ bindings were
+written and eventually officially supported by the ROOT development team,
+called PyROOT. Many analysts currently write the code which plots or fits their
+code using PyROOT, and we will show you some examples later in this exercise.
+***** What won’t you learn here *****
+ROOT is an incredibly powerful toolkit and has a lot in it. It is heavily used
+by most nuclear and particle physics experiments running today. As such, a full
+overview is beyond the scope of this minimal tutorial!
+This tutorial will not teach you how to
+    * Make any plots more sophisticated than a basic histogram.
+    * Fit your data
+    * Use any of the HEP-specific libraries (e.g. TLorentzVector)
+***** OK, where can I learn that stuff? *****
+There are some great resources and tutorials out there for going further.
+    * The_official_ROOT_Primer. The recommended starting point to learn what
+      ROOT can do.
+    * The_official_ROOT_tutorials This is a fairly comprehensive listing of
+      well-commented examples, written in C++ scripts that are designed to be
+      run from within the ROOT C-interpreter.
+    * ROOT_tutorial_for_Summer_Students_(2015).. With video recordings!
+    * Efficient_analysis_with_ROOT. This is a more complete, end-to-end
+      tutorial on using ROOT in a CMS analysis workflow. It was created in 2020
+      by some of our CMS colleagues for a separate workshop, but much of the
+      material is relevant for the Open Data effort. It takes about 2.5 hours
+      to complete the tutorial.
+    * ROOT_tutorial_from_Nevis_Lab_(Columbia_Univ.). Very complete and always
+      up-to-date tutorial from our friends at Columbia.
+***** ROOT terminology *****
+To store these datasets, ROOT uses an object called TTree (ROOT objects are
+often prefixed by a T).
+Each variable on the TTree, for example the transverse momentum of a muon, is
+stored in its own TBranch.
+***** Write to a file *****
+Let’s open a file using our preferred editor. We’ll call this file
+write_ROOT_file.cc. If we’re using vi as our editor, we would type
+vi write_ROOT_file.cc
+As in our last example, we first include some header files, both the standard
+C++ ones and some new ROOT-specific ones.
+#include<cstdio>
+#include<cstdlib>
+#include<iostream>
+
+#include "TROOT.h"
+#include "TTree.h"
+#include "TFile.h"
+#include "TRandom.h"
+Note the inclusion of TRandom.h, which we’ll be using to generate some random
+data for our test file.
+Next, we’ll create our main function and start it off by defining our ROOT file
+object. We’ll also include some explanatory comments, which in the C++ syntax
+are preceded by two slashes, //.
+int main() {
+
+    // Create a ROOT file, f.
+    // The first argument, "tree.root" is the name of the file.
+    // The second argument, "recreate", will recreate the file, even if it
+already exists.
+    TFile f("tree.root","recreate");
+
+    return 0;
+}
+Now we define the TTree object which will hold all of our variables and the
+data they represent.
+This line comes after the TFile creation, but before the return 0 statement at
+the end of the main function. Subsequent edits will also follow the previous
+edit but come before return 0 statement.
+    // A TTree object called t1.
+    // The first argument is the name of the object as stored by ROOT.
+    // The second argument is a short descriptor.
+    TTree t1("t1","A simple Tree with simple variables");
+For this example, we’ll assume we’re recording the missing transverse energy,
+which means there is only one value recorded for each event.
+We’ll also record the energy and momentum (transverse momentum, eta, phi) for
+jets, where there could be between 0 and 5 jets in each event.
+This means we will define some C++ variables that will be used in the program.
+We do this before we define the TBranches in the TTree.
+When we define the variables, we use ROOT’s Float_t and Int_t types, which are
+analogous to float and int but are less dependent on the underlying computer OS
+and architecture.
+   Float_t met; // Missing energy in the transverse direction.
+
+   Int_t njets; // Necessary to keep track of the number of jets
+
+   // We'll define these assuming we will not write information for
+   // more than 16 jets. We'll have to check for this in the code otherwise
+   // it could crash!
+   Float_t pt[16];
+   Float_t eta[16];
+   Float_t phi[16];
+We now define the TBranch for the met variable.
+    // The first argument is ROOT's internal name of the variable.
+    // The second argument is the *address* of the actual variable we defined
+above
+    // The third argument defines the *type* of the variable to be stored, and
+the "F"
+    // at the end signifies that this is a float
+    t1.Branch("met",&met,"met/F");
+Next we define the TBranches for each of the other variables, but the syntax is
+slightly different as these are acting as arrays with a varying number of
+entries for each event.
+    // First we define njets where the syntax is the same as before,
+    // except we take care to identify this as an integer with the final
+    // /I designation
+    t1.Branch("njets",&njets,"njets/I");
+
+    // We can now define the other variables, but we use a slightly different
+    // syntax for the third argument to identify the variable that will be used
+    // to count the number of entries per event
+    t1.Branch("pt",&pt,"pt[njets]/F");
+    t1.Branch("eta",&eta,"eta[njets]/F");
+    t1.Branch("phi",&phi,"phi[njets]/F");
+OK, we’ve defined where everything will be stored! Let’s now generate 1000 mock
+events.
+
+    Int_t nevents = 1000;
+
+    for (Int_t i=0;i<nevents;i++) {
+
+        // Generate random number between 10-60 (arbitrary)
+        met = 50*gRandom->Rndm() + 10;
+
+        // Generate random number between 0-5, inclusive
+        njets = gRandom->Integer(6);
+
+        for (Int_t j=0;j<njets;j++) {
+            pt[j] =  100*gRandom->Rndm();
+            eta[j] =  6*gRandom->Rndm();
+            phi[j] =  6.28*gRandom->Rndm() - 3.14;
+        }
+
+        // After each event we need to *fill* the TTree
+        t1.Fill();
+    }
+
+    // After we've run over all the events, we "change directory" (cd) to the
+file object
+    // and write the tree to it.
+    // We can also print the tree, just as a visual identifier to ourselves
+that
+    // the program ran to completion.
+    f.cd();
+    t1.Write();
+    t1.Print();
+The full write_ROOT_file.cc should now look like this
+     ***** Full source code file for write_ROOT_file.cc *****
+
+
+     #include<cstdio>
+     #include<cstdlib>
+     #include<iostream>
+
+     #include "TROOT.h"
+     #include "TTree.h"
+     #include "TFile.h"
+     #include "TRandom.h"
+
+     int main() {
+
+        // Create a ROOT file, f.
+        // The first argument, "tree.root" is the name of the file.
+        // The second argument, "recreate", will recreate the file, even
+     if it already exists.
+        TFile f("tree.root","recreate");
+
+        // A TTree object called t1.
+        // The first argument is the name of the object as stored by ROOT.
+        // The second argument is a short descriptor.
+        TTree t1("t1","A simple Tree with simple variables");
+
+        Float_t met; // Missing energy in the transverse direction.
+
+        Int_t njets; // Necessary to keep track of the number of jets
+
+        // We'll define these assuming we will not write information for
+        // more than 16 jets. We'll have to check for this in the code
+     otherwise
+        // it could crash!
+        Float_t pt[16];
+        Float_t eta[16];
+        Float_t phi[16];
+
+        // The first argument is ROOT's internal name of the variable.
+        // The second argument is the *address* of the actual variable we
+     defined above
+        // The third argument defines the *type* of the variable to be
+     stored, and the "F"
+        // at the end signifies that this is a float
+        t1.Branch("met",&met,"met/F");
+
+        // First we define njets where the syntax is the same as before,
+        // except we take care to identify this as an integer with the
+     final
+        // /I designation
+        t1.Branch("njets",&njets,"njets/I");
+
+        // We can now define the other variables, but we use a slightly
+     different
+        // syntax for the third argument to identify the variable that
+     will be used
+        // to count the number of entries per event
+        t1.Branch("pt",&pt,"pt[njets]/F");
+        t1.Branch("eta",&eta,"eta[njets]/F");
+        t1.Branch("phi",&phi,"phi[njets]/F");
+
+        Int_t nevents = 1000;
+
+        for (Int_t i=0;i<nevents;i++) {
+
+            // Generate random number between 10-60 (arbitrary)
+            met = 50*gRandom->Rndm() + 10;
+
+            // Generate random number between 0-5, inclusive
+            njets = gRandom->Integer(6);
+
+            for (Int_t j=0;j<njets;j++) {
+                pt[j] =  100*gRandom->Rndm();
+                eta[j] =  6*gRandom->Rndm();
+                phi[j] =  6.28*gRandom->Rndm() - 3.14;
+            }
+
+            // After each event we need to *fill* the TTree
+            t1.Fill();
+        }
+
+        // After we've run over all the events, we "change directory" to
+     the file object
+        // and write the tree to it.
+        // We can also print the tree, just as a visual identifier to
+     ourselves that
+        // the program ran to completion.
+        f.cd();
+        t1.Write();
+        t1.Print();
+
+        return 0;
+     }
+Because we need to compile this in such a way that it links to the ROOT
+libraries, we will use a Makefile to simplify the build process.
+Create a new file called Makefile in the same directory as write_ROOT_file.cc
+and add the following to the file. You’ll most likely do this with the editor
+of your choice.
+CC=g++
+
+CFLAGS=-c -g -Wall `root-config --cflags`
+
+LDFLAGS=`root-config --glibs`
+
+all: write_ROOT_file
+
+write_ROOT_file: write_ROOT_file.cc
+    $(CC) $(CFLAGS) -o write_ROOT_file.o write_ROOT_file.cc
+    $(CC) $(LDFLAGS) -o write_ROOT_file write_ROOT_file.o
+     ***** Warning! Tabs are important in Makefiles! *****
+     Makefiles have been around a long time and are used for many
+     projects, not just C/C++ code. While other build tools are slowly
+     supplanting them (e.g. CMake), Makefiles are a pretty tried and true
+     standard and it is worth taking time at some point and learning more
+     about_them.
+     One frustrating thing though can be a Makefile’s reliance on tabs for
+     specific purposes. In the example above, the following lines are
+     preceeded by a tab and not four (4) spaces.
+        $(CC) $(CFLAGS) -o write_ROOT_file.o write_ROOT_file.cc
+        $(CC) $(LDFLAGS) -o write_ROOT_file write_ROOT_file.o
+     If your Makefile has spaces at those points instead of a tab, make
+     will not work for you and you will get an error.
+You can now compile and run your compiled program from the command line!
+make write_ROOT_file
+./write_ROOT_file
+     ***** Output from write_ROOT_file *****
+     ******************************************************************************
+     *Tree    :t1        : A simple Tree with simple variables
+     *
+     *Entries :     1000 : Total =           51536 bytes  File  Size =
+     36858 *
+     *        :          : Tree compression factor =   1.35
+     *
+     ******************************************************************************
+     *Br    0 :met       : met/
+     F                                                  *
+     *Entries :     1000 : Total  Size=       4542 bytes  File Size  =
+     3641 *
+     *Baskets :        1 : Basket Size=      32000 bytes  Compression=
+     1.12     *
+     *............................................................................*
+     *Br    1 :njets     : njets/
+     I                                                *
+     *Entries :     1000 : Total  Size=       4552 bytes  File Size  =
+     841 *
+     *Baskets :        1 : Basket Size=      32000 bytes  Compression=
+     4.84     *
+     *............................................................................*
+     *Br    2 :pt        : pt[njets]/
+     F                                            *
+     *Entries :     1000 : Total  Size=      14084 bytes  File Size  =
+     10445 *
+     *Baskets :        1 : Basket Size=      32000 bytes  Compression=
+     1.29     *
+     *............................................................................*
+     *Br    3 :eta       : eta[njets]/
+     F                                           *
+     *Entries :     1000 : Total  Size=      14089 bytes  File Size  =
+     10424 *
+     *Baskets :        1 : Basket Size=      32000 bytes  Compression=
+     1.30     *
+     *............................................................................*
+     *Br    4 :phi       : phi[njets]/
+     F                                           *
+     *Entries :     1000 : Total  Size=      14089 bytes  File Size  =
+     10758 *
+     *Baskets :        1 : Basket Size=      32000 bytes  Compression=
+     1.26     *
+     *............................................................................*
+Your numbers may be slightly different because of the random numbers that are
+generated.
+Huzzah! You’ve successfully written your first ROOT file!
+     ***** Will I have to make my Open Data analysis code? *****
+     Yes, you will! However, you won’t actually call make, nor will you
+     need to write your own Makefile. Instead, the CMS software uses a
+     configuration and build system called SCRAM.
+     So instead of typing make, you’ll find yourself typing scram.
+     However, it serves the same purpose by compiling and linking your
+     code for you.
+***** Read a ROOT file *****
+Let’s try to read this file in now. We won’t do much with but we’ll try to
+understand the process necessary to read in all the data and loop over this
+event-by-event.
+We’ll start with the basic include statements and the main program.
+#include<cstdio>
+#include<cstdlib>
+#include<iostream>
+
+#include "TROOT.h"
+#include "TTree.h"
+#include "TFile.h"
+#include "TRandom.h"
+
+int main() {
+
+    return 0;
+}
+In the main function, we’ll define the input file.
+   // Here's the input file
+   // Without the 'recreate' argument, ROOT will assume this file exists to be
+read in.
+   TFile f("tree.root");
+We’ll make use of the built-in member functions to TFile to pull out the TTree
+named t1. There’s a few other things to note.
+First, we’re going to assign it to a local variable named input_tree. This is
+to emphasize that t1 is just a string that refers to the name of the object
+stored in the TFile and that we can assign it to any variable name, not just
+one named t1.
+The second thing to note is that we are going to create a pointer to
+input_tree, which makes some of the memory management easier. This means that
+we precede our variable name with an asterix *, we have to cast the object
+pulled out of the TFile as a TTree pointer (TTree*), and subsequent uses of
+input_tree will access data members and member functions with the -> operator
+rather than a period ..
+If you want to learn more about pointers, there are many, many, resources out
+there.
+   // We will now "Get" the tree from the file and assign it to
+   // a new local variable.
+   TTree *input_tree = (TTree*)f.Get("t1");
+Just as we did in the write_ROOT_file.cc example, we will define some local
+variables. These variables will actually get “filled” by the ROOT file when we
+loop over the events.
+   Float_t met;
+   Int_t njets;
+   Float_t pt[16];
+   Float_t eta[16];
+   Float_t phi[16];
+We’ll now assign these local variables to specific TBranches in input_tree.
+Note that we’ll be using the address of each local variable when we precede the
+variable name with an ampersand &.
+   // Assign these variables to specific branch addresses
+   input_tree->SetBranchAddress("met",&met);
+   input_tree->SetBranchAddress("njets",&njets);
+   input_tree->SetBranchAddress("pt",&pt);
+   input_tree->SetBranchAddress("eta",&eta);
+   input_tree->SetBranchAddress("phi",&phi);
+
+We’re ready now to loop over events! Each time we call input_tree->GetEntry(i),
+it pulls the ith values out of input_tree and “fills” the local variables with
+those values.
+  for (Int_t i=0;i<nevents;i++) {
+
+       // Get the values for the i`th event and fill all our local variables
+       // that were assigned to TBranches
+       input_tree->GetEntry(i);
+
+       // Print the number of jets in this event
+       printf("%d\n",njets);
+
+       // Print out the momentum for each jet in this event
+       for (Int_t j=0;j<njets;j++) {
+           printf("%f,%f,%f\n",pt[j], eta[j], phi[j]);
+       }
+   }
+
+The final version of your read_ROOT_file.cc should look like
+     ***** Full source code file for read_ROOT_file.cc *****
+     #include<cstdio>
+     #include<cstdlib>
+     #include<iostream>
+
+     #include "TROOT.h"
+     #include "TTree.h"
+     #include "TFile.h"
+     #include "TRandom.h"
+
+     int main() {
+
+       // Here's the input file
+       // Without the 'recreate' argument, ROOT will assume this file
+     exists to be read in.
+       TFile f("tree.root");
+
+       // We will now "Get" the tree from the file and assign it to
+       // a new local variable.
+       TTree *input_tree = (TTree*)f.Get("t1");
+
+       Float_t met; // Missing energy in the transverse direction.
+
+       Int_t njets; // Necessary to keep track of the number of jets
+
+       // We'll define these assuming we will not write information for
+       // more than 16 jets. We'll have to check for this in the code
+     otherwise
+       // it could crash!
+       Float_t pt[16];
+       Float_t eta[16];
+       Float_t phi[16];
+
+       // Assign these variables to specific branch addresses
+       input_tree->SetBranchAddress("met",&met);
+       input_tree->SetBranchAddress("njets",&njets);
+       input_tree->SetBranchAddress("pt",&pt);
+       input_tree->SetBranchAddress("eta",&eta);
+       input_tree->SetBranchAddress("phi",&phi);
+
+       // Get the number of events in the file
+       Int_t nevents = input_tree->GetEntries();
+
+       for (Int_t i=0;i<nevents;i++) {
+
+           // Get the values for the i`th event and fill all our local
+     variables
+           // that were assigned to TBranches
+           input_tree->GetEntry(i);
+
+           // Print the number of jets in this event
+           printf("%d\n",njets);
+
+           // Print out the momentum for each jet in this event
+           for (Int_t j=0;j<njets;j++) {
+               printf("%f,%f,%f\n",pt[j], eta[j], phi[j]);
+           }
+       }
+
+       return 0;
+     }
+Now we need to modify our Makefile to compile this code. We edit it so that it
+looks like this.
+CC=g++
+
+CFLAGS=-c -g -Wall `root-config --cflags`
+
+LDFLAGS=`root-config --glibs`
+
+all: write_ROOT_file read_ROOT_file
+
+write_ROOT_file: write_ROOT_file.cc
+    $(CC) $(CFLAGS) -o write_ROOT_file.o write_ROOT_file.cc
+    $(CC) $(LDFLAGS) -o write_ROOT_file write_ROOT_file.o
+
+read_ROOT_file: read_ROOT_file.cc
+    $(CC) $(CFLAGS) -o read_ROOT_file.o read_ROOT_file.cc
+    $(CC) $(LDFLAGS) -o read_ROOT_file read_ROOT_file.o
+
+clean:
+    rm -f ./*~ ./*.o ./write_ROOT_file
+    rm -f ./*~ ./*.o ./read_ROOT_file
+We can now compile and run the code!
+make read_ROOT_file
+./read_ROOT_file
+We get a lot of output! However it should look something like the following,
+keeping in mind your numbers will be different because of the random numbers
+that make up the values.
+     ***** Output of read_ROOT_file *****
+     1
+     85.105431,5.602912,0.501085
+     1
+     18.954712,4.375443,-1.546321
+     1
+     39.784435,5.165263,2.592412
+     3
+     80.748314,0.387768,1.786288
+     52.971573,3.939434,2.484405
+     12.969198,3.115963,0.910543
+     3
+     93.604256,0.737315,-0.647755
+     86.382034,3.493269,-1.573663
+     68.181541,3.658454,-1.206015
+     3
+     96.990395,5.839735,3.046098
+     79.096542,4.515290,0.039709
+     83.234497,4.990829,2.586360
+     4
+     60.880657,1.233623,-2.837789
+     25.723198,4.751074,2.355202
+     20.403908,4.656353,-2.171340
+     18.961079,1.425917,2.016828
+Awesome! You’ve now written and read in a very simple ROOT file! There is
+obviously much more that can be done, but this should give you the basics of
+interfacing with ROOT TFiles and TTrees.
+You’ll see some version of this code when using analyzers to run over the open
+data code. At that point, you can write out subsets of the data to new ROOT
+files or even simply dump the data to a text or .csv file.
+In the next section, we’ll take a quick look at how to read in a file and make
+a few histograms, still using the C++ syntax.
+     ***** Key Points *****
+         * ROOT defines the file format in which all of the CMS Open Data
+           is stored.
+         * These files can be accessed quickly using C++ code and the
+           relevant information can be dumped out into other formats.
+===============================================================================
+****** Using ROOT with C++ to fill a histogram ******
+     ***** Overview *****
+     Teaching: 20 min
+     Exercises: 40 min
+     Questions
+         * Is there more than reading and writing files that can be done
+           with ROOT?
+         * How do I run a ROOT script?
+     Objectives
+         * Learn to fill a histogram and save it to a file.
+         * Learn to run a simple ROOT script
+***** Filling a histogram *****
+ROOT can easily fill a histogram as you are looping over individual events.
+Let’s try creating and filling a histogram with the transverse momentum values.
+We’ll start with the write_ROOT_file.cc code we wrote in the previous episode
+and copy what we have to a new file, fill_histogram.cc.
+cp write_ROOT_file.cc fill_histogram.cc
+Into this file, we’ll add some lines at some key spots. For now, we’ll go
+through those lines of code individually, and then show you the completed file
+at the end to see where they went.
+First we need to include the header file for the ROOT TH1F class.
+#include "TH1F.h"
+We create an output file to store the histogram in.
+   // Let's make an output file which we'll use to save our
+   // histogram
+   TFile fout("output.root","recreate");
+Define the histogram.
+   // We define an histogram for the transverse momentum of the jets
+   // The arguments are as follow
+   // * Internal name of the histogram
+   // * Title that will be used if the histogram is plotted
+   // * Number of bins
+   // * Low edge of the lowest bin
+   // * High edge of the highest bin
+   TH1F h1("h1","jet pT (GeV/c)",50,0,150);
+And then inside the event loop, we fill the histogram each time we get a new
+value for the transverse momentum.
+         // Fill the histogram with each value of pT
+         h1.Fill(pt[j]);
+Before we leave the function, we “change directory” to the output file, write
+the histogram to the file, and then close the output file.
+   fout.cd();
+   h1.Write();
+   fout.Close();
+The final version of fill_histogram.cc will look like this.
+     ***** Source code for fill_histogram.cc *****
+     #include<cstdio>
+     #include<cstdlib>
+     #include<iostream>
+
+     #include "TROOT.h"
+     #include "TTree.h"
+     #include "TFile.h"
+     #include "TRandom.h"
+     #include "TH1F.h"
+
+     int main() {
+
+       // Here's the input file
+       // Without the 'recreate' argument, ROOT will assume this file
+     exists to be read in.
+       TFile f("tree.root");
+
+       // Let's make an output file which we'll use to save our
+       // histogram
+       TFile fout("output.root","recreate");
+
+       // We define an histogram for the transverse momentum of the jets
+       // The arguments are as follow
+       // * Internal name of the histogram
+       // * Title that will be used if the histogram is plotted
+       // * Number of bins
+       // * Low edge of the lowest bin
+       // * High edge of the highest bin
+       TH1F h1("h1","jet pT (GeV/c)",50,0,150);
+
+       // We will now "Get" the tree from the file and assign it to
+       // a new local variable.
+       TTree *input_tree = (TTree*)f.Get("t1");
+
+       Float_t met; // Missing energy in the transverse direction.
+
+       Int_t njets; // Necessary to keep track of the number of jets
+       // We'll define these assuming we will not write information for
+       // more than 16 jets. We'll have to check for this in the code
+     otherwise
+       // it could crash!
+       Float_t pt[16];
+       Float_t eta[16];
+       Float_t phi[16];
+
+       // Assign these variables to specific branch addresses
+       input_tree->SetBranchAddress("met",&met);
+       input_tree->SetBranchAddress("njets",&njets);
+       input_tree->SetBranchAddress("pt",&pt);
+       input_tree->SetBranchAddress("eta",&eta);
+       input_tree->SetBranchAddress("phi",&phi);
+
+       // Get the number of events in the file
+       Int_t nevents = input_tree->GetEntries();
+
+       for (Int_t i=0;i<nevents;i++) {
+
+           // Get the values for the i`th event and fill all our local
+     variables
+           // that were assigned to TBranches
+           input_tree->GetEntry(i);
+
+           // Print the number of jets in this event
+           printf("%d\n",njets);
+
+           // Print out the momentum for each jet in this event
+           for (Int_t j=0;j<njets;j++) {
+               printf("%f,%f,%f\n",pt[j], eta[j], phi[j]);
+
+               // Fill the histogram with each value of pT
+               h1.Fill(pt[j]);
+           }
+       }
+
+       fout.cd();
+       h1.Write();
+       fout.Close();
+
+       return 0;
+     }
+We will modify our Makefile accordingly.
+CC=g++
+
+CFLAGS=-c -g -Wall `root-config --cflags`
+
+LDFLAGS=`root-config --glibs`
+
+all: write_ROOT_file read_ROOT_file fill_histogram
+
+write_ROOT_file: write_ROOT_file.cc
+    $(CC) $(CFLAGS) -o write_ROOT_file.o write_ROOT_file.cc
+    $(CC) $(LDFLAGS) -o write_ROOT_file write_ROOT_file.o
+
+read_ROOT_file: read_ROOT_file.cc
+    $(CC) $(CFLAGS) -o read_ROOT_file.o read_ROOT_file.cc
+    $(CC) $(LDFLAGS) -o read_ROOT_file read_ROOT_file.o
+
+fill_histogram: fill_histogram.cc
+    $(CC) $(CFLAGS) -o fill_histogram.o fill_histogram.cc
+    $(CC) $(LDFLAGS) -o fill_histogram fill_histogram.o
+
+clean:
+    rm -f ./*~ ./*.o ./write_ROOT_file
+    rm -f ./*~ ./*.o ./read_ROOT_file
+    rm -f ./*~ ./*.o ./fill_histogram
+And then compile and run it!
+make fill_histogram
+./fill_histogram
+The output on the screen should not look different. However, if you list the
+contents of the directory, you’ll see a new file, output.root!
+To inspect this new ROOT file, we’ll launch CINT for the first time and create
+a TBrowser_object.
+On the command line, run the following to launch CINT and attach our new ROOT
+file.
+root -l output.root
+root [0]
+Attaching file output.root as _file0...
+root [1]
+You can either type C++/ROOT commands or launch a TBrowser, which is a
+graphical tool to inspect ROOT files. Inside this CINT environment, type the
+following (without the root [1], as that is just the ROOT/CINT prompt).
+root [1] TBrowser b;
+You should see the TBrowser pop up!
+     ***** TBrowser *****
+If we double click on output.root, in the left-hand menu and then the h1;1 that
+appears below it, we should see the following plot appear!
+     ***** Inspecting the ROOT file contents *****
+     ***** Work assignment: investigating data in ROOT files *****
+     In the previous episode you generated a file called tree.root. It has
+     some variables which were stored in a TTree called t1. Let’s explore
+     the variables contained in this tree by using one of the methods
+     available for TTree objects. You can find out more about these
+     methods directly from the ROOT_TTree_class_documentation.
+     Open the tree.root file with ROOT:
+     root -l tree.root
+     Now, dump the content of the t1 tree with the method Print. Note
+     that, by opening the file, the ROOT tree in there is automatically
+     loaded.
+     root [0]
+     Attaching file tree.root as _file0...
+     root [1] t1->Print()
+     Please copy the output this statement generates and paste it into the
+     corresponding section in our assignment_form; remember you must sign
+     in and click on the submit button in order to save your work. You can
+     go back to edit the form at any time.
+***** Using a ROOT script *****
+We could also loop over all the events, create and save the histogram, but also
+draw the histogram onto a TCanvas object and have it pop up, all from a ROOT
+script and the CINT.
+First, let’s copy over our C++ source code into a C++ script.
+cp fill_histogram.cc fill_histogram_SCRIPT.C
+Next we’ll remove the headers at the beginning and even get rid of the int main
+designation, though we keep the curly brackets.
+We’ll also define a TCanvas object on which we’ll plot our histogram. After we
+do that, we “change directory” to the canvas and draw our histogram. We can
+even save it to a .png file.
+   // Declare a TCanvas with the following arguments
+   // * Internal name of the TCanvas object
+   // * Title to be displayed when it is drawn
+   // * Width of the canvas
+   // * Height of the canvas
+   TCanvas *c1 = new TCanvas("c1", "Canvas on which to display our histogram",
+800, 400);
+
+   c1->cd(0);
+   h1.Draw();
+   c1->SaveAs("h_pt.png");
+Your fill_histogram_SCRIPT.C should look like this.
+     ***** Source code for fill_histogram_SCRIPT.C *****
+     {
+
+       // Here's the input file
+       // Without the 'recreate' argument, ROOT will assume this file
+     exists to be read in.
+       TFile f("tree.root");
+
+       // Let's make an output file which we'll use to save our
+       // histogram
+       TFile fout("output.root","recreate");
+
+       // We define an histogram for the transverse momentum of the jets
+       // The arguments are as follow
+       // * Internal name of the histogram
+       // * Title that will be used if the histogram is plotted
+       // * Number of bins
+       // * Low edge of the lowest bin
+       // * High edge of the highest bin
+       TH1F h1("h1","jet pT (GeV/c)",50,0,150);
+
+       // We will now "Get" the tree from the file and assign it to
+       // a new local variable.
+       TTree *input_tree = (TTree*)f.Get("t1");
+
+       Float_t met; // Missing energy in the transverse direction.
+
+       Int_t njets; // Necessary to keep track of the number of jets
+
+       // We'll define these assuming we will not write information for
+       // more than 16 jets. We'll have to check for this in the code
+     otherwise
+       // it could crash!
+       Float_t pt[16];
+       Float_t eta[16];
+       Float_t phi[16];
+
+          // Assign these variables to specific branch addresses
+       input_tree->SetBranchAddress("met",&met);
+       input_tree->SetBranchAddress("njets",&njets);
+       input_tree->SetBranchAddress("pt",&pt);
+       input_tree->SetBranchAddress("eta",&eta);
+       input_tree->SetBranchAddress("phi",&phi);
+
+       // Get the number of events in the file
+       Int_t nevents = input_tree->GetEntries();
+
+       for (Int_t i=0;i<nevents;i++) {
+
+           // Get the values for the i`th event and fill all our local
+     variables
+           // that were assigned to TBranches
+           input_tree->GetEntry(i);
+
+           // Print the number of jets in this event
+           printf("%d\n",njets);
+
+           // Print out the momentum for each jet in this event
+           for (Int_t j=0;j<njets;j++) {
+               printf("%f,%f,%f\n",pt[j], eta[j], phi[j]);
+
+               // Fill the histogram with each value of pT
+               h1.Fill(pt[j]);
+           }
+       }
+
+       // Declare a TCanvas with the following arguments
+       // * Internal name of the TCanvas object
+       // * Title to be displayed when it is drawn
+       // * Width of the canvas
+       // * Height of the canvas
+       TCanvas *c1 = new TCanvas("c1", "Canvas on which to display our
+     histogram", 800, 400);
+
+       c1->cd(0);
+       h1.Draw();
+       c1->SaveAs("h_pt.png");
+
+       fout.cd();
+       h1.Write();
+       fout.Close();
+
+     }
+To run this, you need only type the following on the command line.
+root -l fill_histogram_SCRIPT.C
+You’ll be popped into the CINT environment and you should see the following
+plot pop up!
+     ***** TBrowser *****
+     ***** Key Points *****
+         * You can quickly inspect your data using just ROOT
+         * A simple ROOT script is often all you need for diagnostic work
+===============================================================================
+****** Using ROOT with python ******
+     ***** Overview *****
+     Teaching: 0 min
+     Exercises: 0 min
+     Questions
+         * Can I call ROOT from python?
+     Objectives
+         * Find resources
+***** PyROOT *****
+The PyROOT project started with Wim Lavrijsen in the late `00s and became very
+popular, paralleling the rise of more general python tools within the
+community.
+If you want to learn how to use PyROOT, you can go through some individual
+examples here, or a more guided tutorial here.
+Feel free to challenge yourself to rewrite the previous C++ code using PyROOT!
+     ***** Key Points *****
+         * PyROOT is a complete interface to the ROOT libraries
+===============================================================================
+
+Content licensed under CC-BY_4.0 2020–2021 by The_CMS_Collaboration
+Lesson setup licensed under CC-BY_4.0 2018–2021 by The_Carpentries
+                        Edit_on_GitHub / Contributing / Source / Cite / Contact
+                  Using The_Carpentries_style version 9.5.3.

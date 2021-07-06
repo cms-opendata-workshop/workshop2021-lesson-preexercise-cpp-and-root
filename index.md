@@ -12,13 +12,13 @@ context: editing and running much of the pre-existing code used to access
 some of the older open data files.
 This is *not* a full introduction to either C++ or ROOT, however
 we do take time to explain some key concepts that will help you feel more comfortably working
-with the open data codebase. 
+with the open data codebase.
 
 You should definitely take time to go through either this exercise before
 participating in the workshop.
 
 If you run into problems with any of these steps, please reach out to the organizers
-through the dedicated [Mattermost channel](https://mattermost.web.cern.ch/cmsopendatatheo/channels/town-square).
+through the dedicated [Mattermost channel][mattermost].
 
 
 <!-- this is an html comment -->
