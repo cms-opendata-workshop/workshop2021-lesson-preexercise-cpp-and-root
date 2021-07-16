@@ -17,11 +17,11 @@ keypoints:
 
 ROOT can easily fill a histogram as you are looping over individual events. Let's
 try creating and filling a histogram with the transverse momentum values. We'll start
-with the `write_ROOT_file.cc` code we wrote in the previous episode and copy what
+with the `read_ROOT_file.cc` code we wrote in the previous episode and copy what
 we have to a new file, `fill_histogram.cc`.
 
 ~~~
-cp write_ROOT_file.cc fill_histogram.cc
+cp read_ROOT_file.cc fill_histogram.cc
 ~~~
 {: .language-bash}
 
