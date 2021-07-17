@@ -10,13 +10,40 @@ keypoints:
 - "We must compile our C++ code before we can execute it."
 ---
 
-This lesson assumes that you are using the same Docker container that has
-been created for accessing the CMS open data and the one you were introduced
-to in the
-[Docker pre-exercise](https://cms-opendata-workshop.github.io/workshop2021-lesson-docker/).
-Before going any further in this lesson you should
-launch the CMS Open Data container using the [commands you were introduced to in that lesson](https://cms-opendata-workshop.github.io/workshop2021-lesson-docker/03-docker-for-cms-opendata/index.html). All the exercises in this lesson will be
-compiled and run in this container.
+## Setting up your CMSSW area
+
+If you completed the lessons on [virtual machines](https://cms-opendata-workshop.github.io/workshop2021-lesson-virtualmachine/) or [Docker](https://cms-opendata-workshop.github.io/workshop2021-lesson-docker) you should already have a working CMSSW area.
+
+- If you are using the VM:
+
+  - turn on your virtual machine and go to the right shell according to the [validation instructions](https://cms-opendata-workshop.github.io/workshop2021-lesson-virtualmachine/04-validation/index.html#run-a-simple-demo-for-testing-and-validating):
+
+    ![Choose this shell](../assets/img/rightshell.png)
+
+- If you are using Docker:
+
+  - Start the container with:
+    ~~~
+    docker start -i <theNameOfyourContainer>
+    ~~~
+    {: .language-bash}
+
+Make sure you change directories to the `CMSSW_5_3_32/src` area; for instance, in Docker:
+
+~~~
+cd /home/cmsusr/CMSSW_5_3_32/src
+~~~
+{: .language-bash}
+
+Note that we are not really "installing" CMSSW but setting up an environment for it.  CMSSW was already installed. This is why **every time** you open a new shell you will have to issue the `cmsenv` command, which is just a script that runs to set some environmental variables for your working area:
+
+~~~
+cmsenv
+~~~
+{: .language-bash}
+
+
+## Your first C/C++ program
 
 Let's start with writing a simple `hello world` program in C. First we'll edit the
 *source* code with an editor of your choice.
